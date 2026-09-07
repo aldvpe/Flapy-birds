@@ -1,47 +1,43 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flappy Bird Pro: Leaderboard Edition</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Mengambil Font: Press Start 2P untuk Kesan Retro -->
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flappy Bird Web</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="wrapper">
-    <div id="game-container">
-        <div id="score-display">0</div>
-        <canvas id="canvas" width="360" height="640"></canvas>
+<div id="game-container">
+  <canvas id="birdCanvas" width="360" height="500"></canvas>
 
-        <!-- Menu Awal -->
-        <div id="start-menu" class="overlay">
-            <h1 class="game-title">FLAPPY<br>BIRD <span class="pro-tag">PRO</span></h1>
-            
-            <div class="form-group">
-                <input type="text" id="username" placeholder="Masukkan Username..." required maxlength="12">
-                <input type="tel" id="whatsapp" placeholder="Nomor WA (misal: 08123...)" required>
-                <button class="btn-start" onclick="startGame()">MULAI BERMAIN</button>
-            </div>
-            
-            <div class="leaderboard-box">
-                <h3>🏆 TOP 5 LEADERBOARD 🏆</h3>
-                <div id="leaderboard-list">
-                    <!-- Loading State -->
-                    <div class="loading-text">Memuat data...</div>
-                </div>
-            </div>
-        </div>
+  <!-- Start Menu -->
+  <div id="start-screen" class="screen">
+    <h2>Flappy Bird</h2>
+    <p style="margin-bottom: 15px; font-size: 12px;">Masukkan data untuk bermain</p>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="tel" id="whatsapp" placeholder="Nomor WA (08xxx)" required>
+    <button onclick="startGame()">Mulai Game</button>
+  </div>
 
-        <!-- Menu Game Over -->
-        <div id="game-over-menu" class="overlay hidden">
-            <h1 class="game-over-title">GAME OVER</h1>
-            <p class="final-score-text">Skor Anda:</p>
-            <p id="final-score">0</p>
-            <button class="btn-restart" onclick="restartGame()">MAIN LAGI</button>
-        </div>
-    </div>
+  <!-- Game Over Screen -->
+  <div id="game-over-screen" class="screen hidden">
+    <h2>Game Over!</h2>
+    <p>Skor Anda: <span id="final-score">0</span></p>
+    <p id="status-msg" style="font-size: 12px; color: #ffeb3b; margin-top: 5px;"></p>
+    
+    <h3 style="margin-top: 15px;">Top 5 Leaderboard</h3>
+    <table class="leaderboard-table">
+      <thead>
+        <tr><th>Rank</th><th>Nama</th><th>Skor</th></tr>
+      </thead>
+      <tbody id="leaderboard-body">
+        <tr><td colspan="3">Memuat...</td></tr>
+      </tbody>
+    </table>
+    
+    <button onclick="restartGame()">Main Lagi</button>
+  </div>
 </div>
 
 <script src="script.js"></script>
