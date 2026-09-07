@@ -3,33 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flappy Bird Leaderboard</title>
+    <title>Flappy Bird Pro: Leaderboard Edition</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Mengambil Font: Press Start 2P untuk Kesan Retro -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div id="game-container">
-    <div id="score-display">0</div>
-    <canvas id="canvas" width="360" height="640"></canvas>
+<div id="wrapper">
+    <div id="game-container">
+        <div id="score-display">0</div>
+        <canvas id="canvas" width="360" height="640"></canvas>
 
-    <!-- Menu Awal -->
-    <div id="start-menu" class="overlay">
-        <h1>Flappy Bird</h1>
-        <input type="text" id="username" placeholder="Username" required>
-        <input type="tel" id="whatsapp" placeholder="Nomor WhatsApp (misal: 08123...)" required>
-        <button onclick="startGame()">Mulai Bermain</button>
-        
-        <div class="leaderboard">
-            <h3>Leaderboard Top 5</h3>
-            <div id="leaderboard-list">Memuat data...</div>
+        <!-- Menu Awal -->
+        <div id="start-menu" class="overlay">
+            <h1 class="game-title">FLAPPY<br>BIRD <span class="pro-tag">PRO</span></h1>
+            
+            <div class="form-group">
+                <input type="text" id="username" placeholder="Masukkan Username..." required maxlength="12">
+                <input type="tel" id="whatsapp" placeholder="Nomor WA (misal: 08123...)" required>
+                <button class="btn-start" onclick="startGame()">MULAI BERMAIN</button>
+            </div>
+            
+            <div class="leaderboard-box">
+                <h3>🏆 TOP 5 LEADERBOARD 🏆</h3>
+                <div id="leaderboard-list">
+                    <!-- Loading State -->
+                    <div class="loading-text">Memuat data...</div>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <!-- Menu Game Over -->
-    <div id="game-over-menu" class="overlay hidden">
-        <h1>Game Over</h1>
-        <p>Skor Akhir: <span id="final-score">0</span></p>
-        <button onclick="restartGame()">Main Lagi</button>
+        <!-- Menu Game Over -->
+        <div id="game-over-menu" class="overlay hidden">
+            <h1 class="game-over-title">GAME OVER</h1>
+            <p class="final-score-text">Skor Anda:</p>
+            <p id="final-score">0</p>
+            <button class="btn-restart" onclick="restartGame()">MAIN LAGI</button>
+        </div>
     </div>
 </div>
 
