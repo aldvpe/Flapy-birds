@@ -15,22 +15,28 @@ const pipeWidth = 50, pipeGap = 130, pipeSpeed = 2;
 
 function fetchLeaderboard() {
     if (SCRIPT_URL === 'PASTE_WEB_APP_URL_DI_SINI') {
-        document.getElementById('leaderboard-list').innerHTML = "URL Script belum diisi";
+        document.getElementById('leaderboard-list').innerHTML = "<div class='loading-text'>URL Script belum diisi</div>";
         return;
     }
     fetch(SCRIPT_URL)
         .then(res => res.json())
         .then(data => {
             let html = '';
-            if (!data || data.length === 0) html = 'Belum ada data';
+            if (!data || data.length === 0) html = "<div class='loading-text'>Belum ada data</div>";
             else {
                 data.forEach((item, i) => {
-                    html += `<div class="leaderboard-item"><span>${i + 1}. ${item.username}</span><span>${item.score}</span></div>`;
+                    let topClass = (i === 0) ? 'rank-1' : '';
+                    html += `
+                        <div class="leaderboard-item ${topClass}">
+                            <span class="rank">${i + 1}.</span>
+                            <span class="username">${item.username}</span>
+                            <span class="score">${item.score}</span>
+                        </div>`;
                 });
             }
             document.getElementById('leaderboard-list').innerHTML = html;
         })
-        .catch(() => { document.getElementById('leaderboard-list').innerHTML = "Gagal memuat"; });
+        .catch(() => { document.getElementById('leaderboard-list').innerHTML = "<div class='loading-text'>Gagal memuat</div>"; });
 }
 
 function startGame() {
@@ -62,7 +68,8 @@ function jump() {
 }
 
 document.addEventListener('keydown', (e) => { if (e.code === 'Space') jump(); });
-canvas.addEventListener('click', jump);
+// Support klik pada seluruh area game container, bukan hanya canvas
+document.getElementById('game-container').addEventListener('click', jump);
 
 function update() {
     bird.velocity += bird.gravity;
@@ -99,18 +106,28 @@ function update() {
 }
 
 function draw() {
-    ctx.fillStyle = '#70c5ce';
+    ctx.fillStyle = '#70c5ce'; // Langit
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Gambar Burung
-    ctx.fillStyle = '#f1c40f';
+    // Gambar Burung (Sedikit diperbaiki bentuknya dengan outline)
+    ctx.fillStyle = '#f1c40f'; // Warna Burung
     ctx.fillRect(bird.x, bird.y, bird.w, bird.h);
+    ctx.strokeStyle = '#a18100'; // Outline gelap
+    ctx.lineWidth = 2;
+    ctx.strokeRect(bird.x, bird.y, bird.w, bird.h);
 
-    // Gambar Pipa
-    ctx.fillStyle = '#2ecc71';
+    // Gambar Pipa (Diberi outline agar lebih tegas)
+    ctx.fillStyle = '#2ecc71'; // Warna utama pipa
+    ctx.strokeStyle = '#1a7a43'; // Warna border pipa
+    ctx.lineWidth = 3;
     pipes.forEach(p => {
+        // Pipa Atas
         ctx.fillRect(p.x, 0, pipeWidth, p.top);
+        ctx.strokeRect(p.x, 0, pipeWidth, p.top);
+
+        // Pipa Bawah
         ctx.fillRect(p.x, p.top + pipeGap, pipeWidth, canvas.height - p.top - pipeGap);
+        ctx.strokeRect(p.x, p.top + pipeGap, pipeWidth, canvas.height - p.top - pipeGap);
     });
 }
 
