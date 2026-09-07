@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird Leaderboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="game-container">
+    <div id="score-display">0</div>
+    <canvas id="canvas" width="360" height="640"></canvas>
+
+    <!-- Menu Awal -->
+    <div id="start-menu" class="overlay">
+        <h1>Flappy Bird</h1>
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="tel" id="whatsapp" placeholder="Nomor WhatsApp (misal: 08123...)" required>
+        <button onclick="startGame()">Mulai Bermain</button>
+        
+        <div class="leaderboard">
+            <h3>Leaderboard Top 5</h3>
+            <div id="leaderboard-list">Memuat data...</div>
+        </div>
+    </div>
+
+    <!-- Menu Game Over -->
+    <div id="game-over-menu" class="overlay hidden">
+        <h1>Game Over</h1>
+        <p>Skor Akhir: <span id="final-score">0</span></p>
+        <button onclick="restartGame()">Main Lagi</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
