@@ -1,91 +1,230 @@
-* { 
-  box-sizing: border-box; 
-  margin: 0; 
-  padding: 0; 
-  font-family: Arial, sans-serif; 
+/* CSS - Tema Flappy Bird Bright & Colorful */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-body { 
-  background: #1a1a1a; 
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  min-height: 100vh; 
+body {
+    background-color: #1a252f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #fff;
 }
 
-#game-container { 
-  position: relative; 
-  width: 360px; 
-  height: 500px; 
-  background: #70c5ce; 
-  overflow: hidden; 
-  border-radius: 8px; 
-  border: 4px solid #fff; 
+#game-container {
+    position: relative;
+    width: 360px;
+    height: 640px;
+    background-color: #70c5ce;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 0 4px #2c3e50;
 }
 
-canvas { 
-  display: block; 
+canvas {
+    display: block;
+    cursor: pointer;
 }
 
-.screen { 
-  position: absolute; 
-  top: 0; 
-  left: 0; 
-  width: 100%; 
-  height: 100%; 
-  display: flex; 
-  flex-direction: column; 
-  justify-content: center; 
-  align-items: center; 
-  background: rgba(0, 0, 0, 0.75); 
-  color: white; 
-  padding: 20px; 
-  text-align: center; 
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(112, 197, 206, 0.95) 0%, rgba(222, 216, 149, 0.95) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    text-align: center;
+    backdrop-filter: blur(2px);
 }
 
-.hidden { 
-  display: none !important; 
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
-input { 
-  width: 80%; 
-  padding: 10px; 
-  margin: 8px 0; 
-  border: none; 
-  border-radius: 4px; 
-  outline: none; 
+.bird-logo {
+    width: 50px;
+    height: 38px;
+    background-color: #f1c40f;
+    border-radius: 50% 50% 40% 40%;
+    position: relative;
+    border: 3px solid #d35400;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.15);
 }
 
-button { 
-  width: 80%; 
-  padding: 10px; 
-  margin-top: 10px; 
-  background: #28a745; 
-  color: white; 
-  border: none; 
-  border-radius: 4px; 
-  font-weight: bold; 
-  cursor: pointer; 
+.bird-logo::before { /* Mata */
+    content: '';
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    width: 12px;
+    height: 12px;
+    background-color: #fff;
+    border-radius: 50%;
+    border: 2px solid #000;
 }
 
-button:hover { 
-  background: #218838; 
+.bird-logo::after { /* Paruh */
+    content: '';
+    position: absolute;
+    top: 16px;
+    right: -10px;
+    width: 16px;
+    height: 10px;
+    background-color: #e67e22;
+    border-radius: 2px 6px 6px 2px;
+    border: 2px solid #d35400;
 }
 
-.leaderboard-table { 
-  width: 100%; 
-  margin-top: 15px; 
-  border-collapse: collapse; 
-  font-size: 14px; 
+h1 {
+    font-size: 32px;
+    color: #f1c40f;
+    text-shadow: 3px 3px 0 #d35400, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+    letter-spacing: 2px;
 }
 
-.leaderboard-table th, 
-.leaderboard-table td { 
-  border: 1px solid #ddd; 
-  padding: 6px; 
-  text-align: left; 
+h2 {
+    font-size: 36px;
+    color: #e74c3c;
+    text-shadow: 3px 3px 0 #c0392b, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+    margin-bottom: 15px;
 }
 
-.leaderboard-table th { 
-  background-color: #28a745; 
+.subtitle {
+    font-size: 13px;
+    color: #2c3e50;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 3px solid #2c3e50;
+    border-radius: 12px;
+    font-size: 14px;
+    outline: none;
+    background: #fff;
+    color: #2c3e50;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+input:focus {
+    border-color: #e67e22;
+    box-shadow: 0 0 8px rgba(230, 126, 34, 0.5);
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: #2ecc71;
+    border: 3px solid #27ae60;
+    color: white;
+    font-weight: 800;
+    font-size: 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    text-shadow: 1px 1px 0 #1e8449;
+    box-shadow: 0 6px 0 #27ae60;
+    transition: all 0.1s;
+}
+
+button:hover {
+    background-color: #27ae60;
+}
+
+button:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #1e8449;
+}
+
+.score-card {
+    background: #f39c12;
+    border: 3px solid #d35400;
+    border-radius: 12px;
+    padding: 12px 24px;
+    margin-bottom: 15px;
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 0 4px 0 #d35400;
+}
+
+.score-card p {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.score-card span {
+    font-size: 32px;
+    font-weight: 900;
+    text-shadow: 2px 2px 0 #d35400;
+}
+
+#leaderboard-list {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    border: 3px solid #2c3e50;
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.lb-title {
+    font-weight: 800;
+    font-size: 15px;
+    color: #d35400;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    border-bottom: 2px dashed #d35400;
+    padding-bottom: 4px;
+}
+
+.lb-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 4px;
+    font-size: 13px;
+    font-weight: 700;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.lb-item:last-child {
+    border-bottom: none;
+}
+
+.lb-item .rank {
+    color: #e67e22;
+    margin-right: 6px;
+}
+
+.loading-text {
+    font-size: 13px;
+    color: #7f8c8d;
+    font-style: italic;
+    padding: 10px 0;
 }
