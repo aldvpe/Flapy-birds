@@ -1,7 +1,5 @@
-// JavaScript - Flappy Bird Mechanics & Google Sheets Integration
-
-// GANTI URL DI BAWAH DENGAN WEB APP URL APPS SCRIPT ANDA
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzyhMcPasJdZAWzbcBY1ZL8kQuNTC5vHGIrYlx3Aw2l64ncmcJUuQFoTjSvL_2Vxsg/exec";
+// Masukkan URL Deployment Google Apps Script Anda di sini
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwPQW-vBQuwybWz3nrDvLSGvVbGit1zh7XWjLAEpms_5DmhgC3YbnfHAoUs6OtIYGQO/exec";
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -13,7 +11,7 @@ let gameOver = false;
 let gameStarted = false;
 let frame = 0;
 
-// Objek Burung (Bird)
+// Objek Burung
 const bird = {
     x: 60,
     y: 250,
@@ -28,12 +26,10 @@ const bird = {
         ctx.save();
         ctx.translate(this.x + this.w / 2, this.y + this.h / 2);
 
-        // Rotasi burung berdasarkan kecepatan jatuh
         this.rotation = Math.min(Math.PI / 4, Math.max(-Math.PI / 4, (this.velocity * 0.1)));
         ctx.rotate(this.rotation);
 
-        // Badan Burung
-        ctx.fillStyle = "#f1c40f"; // Kuning
+        ctx.fillStyle = "#f1c40f";
         ctx.beginPath();
         ctx.ellipse(0, 0, this.w / 2, this.h / 2, 0, 0, Math.PI * 2);
         ctx.fill();
@@ -41,27 +37,23 @@ const bird = {
         ctx.strokeStyle = "#d35400";
         ctx.stroke();
 
-        // Sayap Burung
         ctx.fillStyle = "#e67e22";
         ctx.beginPath();
         ctx.ellipse(-6, 2, 8, 5, Math.PI / 6, 0, Math.PI * 2);
         ctx.fill();
         ctx.stroke();
 
-        // Mata Burung
         ctx.fillStyle = "#ffffff";
         ctx.beginPath();
         ctx.arc(6, -5, 6, 0, Math.PI * 2);
         ctx.fill();
         ctx.stroke();
 
-        // Pupil Mata
         ctx.fillStyle = "#000000";
         ctx.beginPath();
         ctx.arc(8, -5, 2, 0, Math.PI * 2);
         ctx.fill();
 
-        // Paruh Burung
         ctx.fillStyle = "#e74c3c";
         ctx.beginPath();
         ctx.moveTo(10, -2);
@@ -78,13 +70,11 @@ const bird = {
         this.velocity += this.gravity;
         this.y += this.velocity;
 
-        // Cek tabrakan dengan tanah
         if (this.y + this.h >= canvas.height - 100) {
             this.y = canvas.height - 100 - this.h;
             endGame();
         }
 
-        // Cek tabrakan dengan atap
         if (this.y <= 0) {
             this.y = 0;
             this.velocity = 0;
@@ -96,7 +86,7 @@ const bird = {
     }
 };
 
-// Array Pipa
+// Pipa
 const pipes = [];
 const pipeWidth = 52;
 const pipeGap = 130;
@@ -115,15 +105,12 @@ function createPipe() {
 }
 
 function updatePipes() {
-    if (frame % 90 === 0) {
-        createPipe();
-    }
+    if (frame % 90 === 0) createPipe();
 
     for (let i = pipes.length - 1; i >= 0; i--) {
         let p = pipes[i];
         p.x -= 2;
 
-        // Cek Hitbox Tabrakan
         if (
             bird.x + bird.w > p.x &&
             bird.x < p.x + pipeWidth &&
@@ -132,13 +119,11 @@ function updatePipes() {
             endGame();
         }
 
-        // Hitung Skor saat berhasil melintasi pipa
         if (!p.passed && p.x + pipeWidth < bird.x) {
             p.passed = true;
             score++;
         }
 
-        // Hapus pipa yang keluar layar
         if (p.x + pipeWidth < 0) {
             pipes.splice(i, 1);
         }
@@ -147,34 +132,28 @@ function updatePipes() {
 
 function drawPipes() {
     pipes.forEach(p => {
-        // Pipa Atas
         ctx.fillStyle = "#2ecc71";
         ctx.fillRect(p.x, 0, pipeWidth, p.top);
         ctx.strokeStyle = "#1e8449";
         ctx.lineWidth = 3;
         ctx.strokeRect(p.x, 0, pipeWidth, p.top);
 
-        // Bibir Pipa Atas
         ctx.fillRect(p.x - 3, p.top - 20, pipeWidth + 6, 20);
         ctx.strokeRect(p.x - 3, p.top - 20, pipeWidth + 6, 20);
 
-        // Pipa Bawah
         const bottomY = canvas.height - 100 - p.bottom;
         ctx.fillRect(p.x, bottomY, pipeWidth, p.bottom);
         ctx.strokeRect(p.x, bottomY, pipeWidth, p.bottom);
 
-        // Bibir Pipa Bawah
         ctx.fillRect(p.x - 3, bottomY, pipeWidth + 6, 20);
         ctx.strokeRect(p.x - 3, bottomY, pipeWidth + 6, 20);
     });
 }
 
 function drawBackground() {
-    // Langit
     ctx.fillStyle = "#70c5ce";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Awan-awan
     ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
     ctx.beginPath();
     ctx.arc(80, 100, 30, 0, Math.PI * 2);
@@ -182,25 +161,11 @@ function drawBackground() {
     ctx.arc(140, 100, 30, 0, Math.PI * 2);
     ctx.fill();
 
-    ctx.beginPath();
-    ctx.arc(260, 180, 25, 0, Math.PI * 2);
-    ctx.arc(285, 170, 35, 0, Math.PI * 2);
-    ctx.arc(310, 180, 25, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Tanah (Ground)
     ctx.fillStyle = "#ded895";
     ctx.fillRect(0, canvas.height - 100, canvas.width, 100);
 
-    // Rumput di Atas Tanah
     ctx.fillStyle = "#2ecc71";
     ctx.fillRect(0, canvas.height - 100, canvas.width, 15);
-    ctx.strokeStyle = "#1e8449";
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(0, canvas.height - 85);
-    ctx.lineTo(canvas.width, canvas.height - 85);
-    ctx.stroke();
 }
 
 function drawScore() {
@@ -217,30 +182,22 @@ function loop() {
     if (!gameStarted || gameOver) return;
 
     drawBackground();
-
     bird.update();
     bird.draw();
-
     updatePipes();
     drawPipes();
-
     drawScore();
 
     frame++;
     requestAnimationFrame(loop);
 }
 
-// Event Controls
 window.addEventListener("keydown", (e) => {
-    if (e.code === "Space" && gameStarted && !gameOver) {
-        bird.flap();
-    }
+    if (e.code === "Space" && gameStarted && !gameOver) bird.flap();
 });
 
 canvas.addEventListener("click", () => {
-    if (gameStarted && !gameOver) {
-        bird.flap();
-    }
+    if (gameStarted && !gameOver) bird.flap();
 });
 
 function startGame() {
@@ -283,11 +240,7 @@ function restartGame() {
 function sendDataToSheets() {
     if (SCRIPT_URL === "GANTI_DENGAN_URL_DEPLOYMENT_ANDA") return;
 
-    const payload = {
-        username: username,
-        noWA: noWA,
-        score: score
-    };
+    const payload = { username: username, noWA: noWA, score: score };
 
     fetch(SCRIPT_URL, {
         method: "POST",
@@ -298,18 +251,20 @@ function sendDataToSheets() {
 }
 
 function fetchLeaderboard() {
-    const lbContainer = document.getElementById("leaderboard-list");
-    lbContainer.innerHTML = "<p class='loading-text'>Memuat Leaderboard...</p>";
+    const startLbList = document.getElementById("start-leaderboard-list");
+    const endLbList = document.getElementById("end-leaderboard-list");
 
     if (SCRIPT_URL === "GANTI_DENGAN_URL_DEPLOYMENT_ANDA") {
-        lbContainer.innerHTML = "<div class='lb-title'>Top Player</div><p class='loading-text'>Atur SCRIPT_URL untuk melihat leaderboard real-time.</p>";
+        const defaultMsg = "<p class='loading-text'>Atur SCRIPT_URL untuk memuat data.</p>";
+        startLbList.innerHTML = defaultMsg;
+        endLbList.innerHTML = defaultMsg;
         return;
     }
 
     fetch(SCRIPT_URL)
         .then(res => res.json())
         .then(data => {
-            let html = "<div class='lb-title'>🏆 Top 5 Player</div>";
+            let html = "";
             data.forEach((item, index) => {
                 html += `
                     <div class="lb-item">
@@ -318,12 +273,17 @@ function fetchLeaderboard() {
                     </div>
                 `;
             });
-            lbContainer.innerHTML = html;
+
+            startLbList.innerHTML = html || "<p class='loading-text'>Belum ada data.</p>";
+            endLbList.innerHTML = html || "<p class='loading-text'>Belum ada data.</p>";
         })
         .catch(err => {
-            lbContainer.innerHTML = "<p class='loading-text' style='color: red;'>Gagal memuat leaderboard</p>";
+            const errorMsg = "<p class='loading-text' style='color: #e74c3c;'>Gagal memuat leaderboard.</p>";
+            startLbList.innerHTML = errorMsg;
+            endLbList.innerHTML = errorMsg;
         });
 }
 
-// Initial Draw Background on Load
+// Muat Leaderboard & Background saat halaman pertama kali dibuka
 drawBackground();
+fetchLeaderboard();
