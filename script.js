@@ -1,7 +1,7 @@
 // JavaScript - Flappy Bird Mechanics & Google Sheets Integration
 
 // GANTI URL DI BAWAH DENGAN WEB APP URL APPS SCRIPT ANDA
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwfaOlTvQV98dSSPQg4XeQ5nXc2y_CFo0A-n5uRIfD_shbrBBaXevZwzZ0Ps6aI90izmg/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwPQW-vBQuwybWz3nrDvLSGvVbGit1zh7XWjLAEpms_5DmhgC3YbnfHAoUs6OtIYGQO/exec";
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
