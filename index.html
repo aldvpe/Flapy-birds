@@ -11,18 +11,28 @@
 <div id="game-container">
     <canvas id="canvas" width="360" height="640"></canvas>
 
-    <!-- Menu Awal -->
+    <!-- Menu Awal / Start Screen -->
     <div id="start-screen" class="screen">
         <div class="logo-container">
             <div class="bird-logo"></div>
             <h1>FLAPPY BIRD</h1>
         </div>
         <p class="subtitle">Masukan identitas sebelum bermain!</p>
+        
         <div class="form-group">
             <input type="text" id="username" placeholder="Username / Nama Panggilan" required autocomplete="off">
             <input type="tel" id="noWA" placeholder="Nomor WhatsApp (08xxxxxxxx)" required autocomplete="off">
         </div>
+        
         <button id="btn-start" onclick="startGame()">Mulai Terbang 🚀</button>
+
+        <!-- Container Leaderboard di Luar / Menu Awal -->
+        <div id="start-leaderboard" class="leaderboard-box">
+            <div class="lb-title">🏆 Top 10 Leaderboard</div>
+            <div id="start-leaderboard-list">
+                <p class="loading-text">Memuat Leaderboard...</p>
+            </div>
+        </div>
     </div>
 
     <!-- Game Over Screen -->
@@ -32,9 +42,13 @@
             <p>Skor Anda</p>
             <span id="final-score">0</span>
         </div>
-        <div id="leaderboard-list">
-            <p class="loading-text">Memuat Leaderboard...</p>
+        
+        <div id="end-leaderboard" class="leaderboard-box">
+            <div id="end-leaderboard-list">
+                <p class="loading-text">Memuat Leaderboard...</p>
+            </div>
         </div>
+        
         <button id="btn-restart" onclick="restartGame()">Main Lagi 🔄</button>
     </div>
 </div>
